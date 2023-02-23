@@ -2,6 +2,7 @@ takes research grade images from inaturalist and puts them on your screen for yo
 For studying/learning to ID stuff from a bunch of different images.
 
 uses python libraries requests, tkinter and PIL. i think you gotta download those.
+
 https://pillow.readthedocs.io/en/stable/installation.html
 
 https://pypi.org/project/requests/

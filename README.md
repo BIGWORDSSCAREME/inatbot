@@ -3,7 +3,9 @@ For studying/learning to ID stuff from a bunch of different images.
 
 uses python libraries requests, tkinter and PIL. i think you gotta download those.
 https://pillow.readthedocs.io/en/stable/installation.html
+
 https://pypi.org/project/requests/
+
 https://www.tutorialspoint.com/how-to-install-tkinter-in-python
 
 right now it is functional but it is not perfect. i plan on working on this more when i get the chance. this was born out of an incredible amount of boredom

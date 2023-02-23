@@ -16,3 +16,6 @@ no styling yet. also still some wonky stuff that happens. one image remains on y
 little error handling. also letting the user input whatever they want and then going to that website may be kind dangerous. as well as deleting files
 sort of based on user input. Something to know about and likely change in the future. but i am no cyber security expert. if you find a way to delete system32
 on your own computer thats on you lol.
+
+
+any questions/whatever can be directed at ehlke2@wisc.edu

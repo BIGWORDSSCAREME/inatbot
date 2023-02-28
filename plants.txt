@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Selaginella eclipes",
+    "info": "Meadow spike moss\nPart of the heterosporous family Selaginellaceae (the spike mosses) and the phylum lycopodiophyta. This phylum has microphylls and is evergreen."
+  },
+  {
+    "name": "Huperzia lucidula",
+    "info": "Shiny club moss\nPart of the homosporous family Lycopodiaceae (the club mosses) and the phylum lycopodiophyta. This phylum has microphylls and is evergreen."
+  },
+  {
+    "name": "Isoetes echinospora",
+    "info": "Spiny quillwort\nPart of the heterosporous and aquatic or semi-aquatic family Isoetaceae (the quillworts). Part of the phylum lycopodiophyta. This phylum has microphylls and is evergreen."
+  },
+  {
+    "name": "Equisetum arvense",
+    "info": "Field horsetail\nPart of the Equisetaceae (horsetails and scouring rushes) family. Horsetails have branched shoots, scouring rushes are unbranched. Can have monomorphic or dimorphic shoots."
+  },
+  {
+    "name": "Botrychium lunaria",
+    "info": "Moonwort fern\nPart of the \"primitive\" family Ophioglossaceae (the adder's-tongue ferns). All of the ferns in this family look incredibly sick."
+  },
+  {
+    "name": "Osmunda claytoniana",
+    "info": "Interrupted fern\nPart of the Osmundaceae (royal fern) family."
+  },
+  {
+    "name": "Pteridium aquilinum",
+    "info": "Bracken fern\nPart of the Dennstaedtiaceae (bracken) family. Bracken ferns have false indusium-the margins of the leaves are rolled over on the bottom to protect the sori. Everyone loves bracken ferns."
+  },
+  {
+    "name": "Adiantum pedatum",
+    "info": "Maidenhair fern\nPart of the Pteridaceae (maidenhair fern) family. In this family, sori often lack indusia or have false-indusia."
+  },
+  {
+    "name": "Onoclea sensibilis",
+    "info": "Sensitive fern\nPart of the Onocleaceae (sensitive fern) family. The sensitive fern has dimorphic sterile and fertile fronds. The fertile frond is black and the sterile front is pinnately lobed."
+  },
+  {
+    "name": "Polypodium virginianum",
+    "info": "Rockcap fern\nPart of the Polypodiaceae (rockcap) family. The rockcap fern has simple, pinnately lobed leaves and grows on rocks."
+  },
+  {
+    "name": "Dryopteris intermedia",
+    "info": "Shield fern\nPart of the Dryopteridaceae (woodfern) family."
+  },
+  {
+    "name": "Azolla mexicana",
+    "info": "Mexican mosquito fern\nPart of the heterosporous Salviniaceae/Azollaceae (mosquito fern) family. This family has symbiotic relationships with nitrogen-fixing bacteria."
+  }
+]

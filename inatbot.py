@@ -15,13 +15,17 @@ CLEAN UP THE READYGAMESCREEN SECTION. SPECIFCALLY CLICKABLE TEXT AND THE FUNCTIO
 """
 
 random.seed()
-iNatUrl = "https://api.inaturalist.org/v1/observations?photos=true&taxon_name={}&identifications=most_agree&quality_grade=research&locale=en-US&page=1&per_page=10&order=desc&order_by=created_at"
+iNatUrl = "https://api.inaturalist.org/v1/observations?photos=true&taxon_name={}&identifications=most_agree&quality_grade=research&locale=en-US&page={}&per_page=10&order=desc&order_by=created_at"
 
 def BindTree(node, event, function):
 	node.bind(event, function)
 	
 	for child in node.children.values():
 		BindTree(child, event, function)
+
+def insert_newlines(string, every=64):
+	#stole this function from stackoverflow. adds new lines every 64 characters.
+	return '\n'.join(string[i:i+every] for i in range(0, len(string), every))
 
 class Screen:
 	
@@ -135,7 +139,8 @@ class ReadyGame(Screen):
 		fileContent = loads(fileContent)
 		for i in fileContent:
 			#you gotta format the json correctly! so it can be imported like this!
-			self.AddSpecies(i["name"], info = i["info"])
+			info = insert_newlines(i["info"])
+			self.AddSpecies(i["name"], info = info)
 			
 
 class SpeciesListItem:
@@ -183,7 +188,7 @@ class Game(Screen):
 		self.mainFrame = tk.Frame(window)
 		self.speciesName = tk.Label(self.mainFrame, text = "Which species?")
 		self.speciesInfo = tk.Label(self.mainFrame, text = "")
-		self.imageCanvas = tk.Canvas(self.mainFrame)
+		self.imageCanvas = tk.Canvas(self.mainFrame, height = 400)
 		self.showNameButton = tk.Button(self.mainFrame, text = "Show name", command = self.ShowName)
 		self.guessSpeciesEntry = tk.Entry(self.mainFrame)
 		self.guessSpeciesEntry.bind("<KeyPress>", self.GuessSpecies)
@@ -214,7 +219,7 @@ class Game(Screen):
 	def MakeOrder(self):
 		for species in self.speciesList:
 			#Species[0] is the name. Species[1] is the data.
-			speciesUrl = iNatUrl.format(species[0])
+			speciesUrl = iNatUrl.format(species[0], random.randint(1, 10))
 			jsonData = loads(r.get(speciesUrl).content)
 			if jsonData['total_results'] == 0:
 				print(species[0] + " has no results.")
@@ -228,12 +233,13 @@ class Game(Screen):
 	def DownloadImage(self, url):
 		#The url looks like this
 		#https://inaturalist-open-data.s3.amazonaws.com/photos/257918386/square.jpeg
-		#The following lines replace the square with medium. INaturalist has a few
+		#The following lines replace the square with medium/large. INaturalist has a few
 		#Different sizes of their images - square, small, medium, large. Square is what
 		#is given from the api call from before, but that's like super low res.
 		index = url.find("square")
 		url2 = url[:index]
 		url2 = url2 + "medium"
+		#url2 = url2 + "large"
 		fileExtension = url[index + 6:]
 		url = url2 + fileExtension
 		response = r.get(url, stream = True)

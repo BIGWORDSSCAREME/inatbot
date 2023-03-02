@@ -1,6 +1,8 @@
 takes research grade images from inaturalist and puts them on your screen for you to ID. Enter the names of species, then press enter.
 For studying/learning to ID stuff from a bunch of different images.
 
+All plants for exam 1 of botany 401 included in the files. Press the import from file button and click one of the text files!
+
 uses python libraries requests, tkinter and PIL. i think you gotta download those.
 
 https://pillow.readthedocs.io/en/stable/installation.html

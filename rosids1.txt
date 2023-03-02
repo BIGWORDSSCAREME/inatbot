@@ -1,0 +1,126 @@
+[
+  {
+    "name": "Ribes americanum",
+    "info": "Eastern black currant\nPart of the Grossulariaceae (currant) family. Currants of this family often have racimes, gooseberries often have paired flowers. Has showy yellow flowers in early spring and edible black berries in mid-summer."
+  },
+  {
+    "name": "Hamamelis virginiana",
+    "info": "American witch-hazel\nPart of the Hamamelidaceae (witch hazel) family. Flowers of members of this family are 4 (or 5) merous and insect pollinated."
+  },
+  {
+    "name": "Sedum acre",
+    "info": "Gold-moss stonecrop\nPart of the Crassulaceae (stonecrop) family. Members of this family are often leaf succulent herbs or small shrubs. This species is not native to Wisconsin."
+  },
+  {
+    "name": "Heuchera richardsonii",
+    "info": "Prairie alumroot\nPart of the Saxifragaceae (saxifrage) family. This family often has a perigynous ovary."
+  },
+  {
+    "name": "Mitella diphylla",
+    "info": "Bishop's cap\nPart of the Saxifragaceae (saxifrage) family. This family often has a perigynous ovary."
+  },
+  {
+    "name": "Agrimonia gryposepala",
+    "info": "Common agrimony\nPart of the massive Rosaceae (rose) family. This family has prominent stipules."
+  },
+  {
+    "name": "Geum triflorum",
+    "info": "Prairie smoke\nPart of the massive Rosaceae (rose) family. This family has prominent stipules."
+  },
+  {
+    "name": "Potentilla simplex",
+    "info": "Common cinquefoil\nPart of the massive Rosaceae (rose) family. This family has prominent stipules."
+  },
+  {
+    "name": "Prunus serotina",
+    "info": "Black cherry\nPart of the massive Rosaceae (rose) family. This family has prominent stipules."
+  },
+  {
+    "name": "Rosa multiflora",
+    "info": "Multiflora rose\nPart of the massive Rosaceae (rose) family. This family has prominent stipules. This species is invasive in Wisconsin."
+  },
+  {
+    "name": "Rubus allegheniensis",
+    "info": "Common blackberry\nPart of the massive Rosaceae (rose) family. This family has prominent stipules. This species has edible fruit. If it looks like a black raspberry, its edible."
+  },
+  {
+    "name": "Spiraea tomentosa",
+    "info": "Hardhack\nPart of the massive Rosaceae (rose) family. This family has prominent stipules."
+  },
+  {
+    "name": "Rhamnus cathartica",
+    "info": "European buckthorn\nPart of the Rhamnaceae (buckthorn) family. Fruits are one-seeded drupes and the inner bark is often green and photosynthetic."
+  },
+  {
+    "name": "Ceanothus americanus",
+    "info": "New Jersey tea\nPart of the Rhamnaceae (buckthorn) family. This species fixes nitrogen."
+  },
+  {
+    "name": "Ulmus americana",
+    "info": "American elm\nPart of the Ulmaceae (elm) family. The flowers of this family are reduced and wind pollinated. The seeds are often samaras."
+  },
+  {
+    "name": "Ulmus rubra",
+    "info": "Slippery elm\nPart of the Ulmaceae (elm) family. The flowers of this family are reduced and wind pollinated. The seeds are often samaras."
+  },
+  {
+    "name": "Cannabis sativa",
+    "info": "Marijuana\nPart of the Cannabaceae (marijuana) family. Hemp can be used for rope or smoking."
+  },
+  {
+    "name": "Urtica dioica",
+    "info": "Stining nettle\nPart of the Urticaceae (nettle) family."
+  },
+  {
+    "name": "morus alba",
+    "info": "White mulberry\nPart of the Moraceae (mulberry) family. This species has a multiple fruit that looks similar to black raspberries (and is edible). This species is introduced in Wisconsin. White mulberry is native."
+  },
+  {
+    "name": "Lupinus perennis",
+    "info": "Wild lupine\nPart of the Fabaceae (legume) family. Most members of this family have stipules and compound leaves."
+  },
+  {
+    "name": "Robinia psuedoacacia",
+    "info": "Black locust\nPart of the Fabaceae (legume) family. Most members of this family have stipules and compound leaves."
+  },
+  {
+    "name": "Trifolium pratense",
+    "info": "Red clover\nPart of the Fabaceae (legume) family. Most members of this family have stipules and compound leaves."
+  },
+  {
+    "name": "Viola pubescens",
+    "info": "Yellow violet\nPart of the Violaceae (violet) family. Violets are insect pollinated and have nectar guides."
+  },
+  {
+    "name": "Viola sororia",
+    "info": "Common blue violet\nPart of the Violaceae (violet) family. Violets are insect pollinated and have nectar guides."
+  },
+  {
+    "name": "Hypericum perforatum",
+    "info": "Common St. John's-wort\nPart of the Hypericaceae (St. John's-wort) family. Many species in this family have leaves and petals that are punctate (have black dots)."
+  },
+  {
+    "name": "Populus deltoides",
+    "info": "American cottonwood\nPart of the Salicaceae (willow) family. Populus trees are diecious meaning there are male and female trees. Highly reduced flowers."
+  },
+  {
+    "name": "Salix discolor",
+    "info": "Pussy willow\nPart of the Salicaceae (willow) family. Salix species are deicious meaning there are male and female individuals. Some species are insect pollinated, some are wind pollinated."
+  },
+  {
+    "name": "Euphorbia corollata",
+    "info": "Flowering spurge\nPart of the Euphorbiaceae (spurge) family. This family often has latex with nasty chemicals in it."
+  },
+  {
+    "name": "Echinocystis lobata",
+    "info": "Wild cucumber\nPart of the Cucurbitaceae (melon) family. The fruit of this family is a berry with leathery skin called a pepo."
+  },
+  {
+    "name": "Parthenocissus tricuspidata",
+    "info": "Boston ivy\nPart of the Vitaceae (grape) family."
+  },
+  {
+    "name": "Vitis riparia",
+    "info": "Frost grape\nPart of the Vitaceae (grape) family."
+  }
+]

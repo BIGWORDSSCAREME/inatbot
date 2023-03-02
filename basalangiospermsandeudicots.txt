@@ -1,0 +1,126 @@
+[
+{
+    "name": "Asarum canadense",
+    "info": "Wild-ginger\nPart of Aristolochiaceae (birthwort) family. Fly or beetle pollinated, ant dispersed. The flowers have highly reduced petals."
+  },
+  {
+    "name": "Nymphaea odorata",
+    "info": "White water-lily\nPart of the aquatic Nymphaeaceae (water-lily) family. Found in slow or still waters. Showy white flowers with many petals."
+  },
+  {
+    "name": "Nuphar variegatum",
+    "info": "Yellow pond-lily\nPart of the aquatic Nymphaeaceae (water-lily) family. Found in slow or still waters. Beetle pollinated. Petaloid sepals and reduced petals."
+  },
+  {
+    "name": "Ceratophyllum demersum",
+    "info": "Coon's tail\nPart of the submersed aquatic Ceratophyllaceae (coon's tail) family. Whorled, dichotomously forked leaves. Reduced and unisexual flowers. Monoecious."
+  },
+  {
+    "name": "Actaea rubra",
+    "info": "Red baneberry\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. Often has one large, 3-times compound leaf."
+  },
+  {
+    "name": "Anemone americana",
+    "info": "Round-lobed Hepatica\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. Formerly part of the Hepatica genus, now a part of anemone. Evergreen leaves."
+  },
+  {
+    "name": "Anemone quinquefolia",
+    "info": "Wood anemone\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family."
+  },
+  {
+    "name": "Aquilegia canadensis",
+    "info": "Wild red columbine\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. The flower of this plant is upside-down, and it is pollinated by hummingbirds."
+  },
+  {
+    "name": "Caltha palustris",
+    "info": "Marsh marigold\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. 5 yellow sepals and no petals. Follicle fruits."
+  },
+  {
+    "name": "Enemion biternatum",
+    "info": "False rue-anemone\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. 5 white sepals and no petals. Follicle fruits."
+  },
+  {
+    "name": "Ranunculus hispidus",
+    "info": "Swamp buttercup\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. Fruit is an achene."
+  },
+  {
+    "name": "Thalictrum dasycarpum",
+    "info": "Purple meadow-rue\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. Diecious - male and female flowers on different plants."
+  },
+  {
+    "name": "Caulophyllum thalictroides",
+    "info": "Blue cohosh\nPart of the Berbidaceae (barberry) family. Developing ovules of this species break the ovary wall so seeds are naked with fleshy blue seed coats. 3 times compound leaves."
+  },
+  {
+    "name": "Podophyllum peltatum",
+    "info": "May-apple\nPart of the Berbidaceae (barberry) family. This species forms large colonies of deeply-lobed peltate leaves. Stems without flowers have 1 leaf, stems with flowers have two leaves."
+  },
+  {
+    "name": "Berberis vulgaris",
+    "info": "Common barberry\nPart of the Berbidaceae (barberry) family. Invasive in the great lakes region."
+  },
+  {
+    "name": "Menispermum canadense",
+    "info": "Common moonseed\nPart of the Menispermaceae (moonseed) family. This species has palmately veined and lobed leaves. It is also dioecious and produces poisonous, 1-seeded drupes."
+  },
+  {
+    "name": "Chelidonium majus",
+    "info": "Greater celadine\nPart of the Papaveraceae (poppy) family. This family often has colored, latexy, poisonous sap. This species is invasive to Wisconsin and has sap that is poisonous and irritating to the skin and eyes."
+  },
+  {
+    "name": "Sanguinaria canadensis",
+    "info": "Blood root\nPart of the Papaveraceae (poppy) family. This family often has colored, latexy, poisonous sap. This species has 8 petals, many stamens, and red-orange sap."
+  },
+  {
+    "name": "Dicentra cucullaria",
+    "info": "Dutchman's breeches\nPart of the Papaveraceae (poppy) family. This family often has colored, latexy, poisonous sap. This species is pollinated by bumblebees. The flower has zygomorphic symmetry."
+  },
+  {
+    "name": "Nelumbo lutea",
+    "info": "Yellow-lotus\nPart of the aquatic Nelumbonaceae (lotus lily) family. This species is an emergent aquatic plant with a peltate leaf and a showy plant with many white to pale yellow tepals."
+  },
+  {
+    "name": "Platanus occidentalis",
+    "info": "American sycamore\nPart of the Platanaceae (sycamore) family. This species has flaky bark when young and maple-like alternate leaves."
+  },
+  {
+    "name": "Cerastium fontanum",
+    "info": "Mouse-ear chickweed\nPart of the Caryophyllaceae (pink) family. Inflorescences of this family are often dichasms or cymes. 5 white, deeply divided petals and 5 sepals."
+  },
+  {
+    "name": "Silene latifolia",
+    "info": "White campion\nPart of the Caryophyllaceae (pink) family. Inflorescences of this family are often dichasms or cymes."
+  },
+  {
+    "name": "Phytolacca americana",
+    "info": "Pokeweed\nPart of the Phytolaccaceae (pokeweed) family. The inflorescence of this species is an indeterminate raceme. This genus is poisonous but the leaves can be eaten if processed correctly."
+  },
+  {
+    "name": "Claytonia virginica",
+    "info": "Spring beauty\nPart of the Montiaceae (spring beauty) family. The fruits of this family are capsules with lids."
+  },
+  {
+    "name": "Opuntia macrorhiza",
+    "info": "Plains prickly-pear\nPart of the Cactaceae (cactus) family. The flower of this genus has many tepals and the fruit is an edible berry."
+  },
+  {
+    "name": "Chenopodium album",
+    "info": "Lamb's quarter\nPart of the halophytic Amaranthaceae (amaranth) family. The leaves of this species are edible."
+  },
+  {
+    "name": "Amaranthus retroflexus",
+    "info": "Rough amaranth\nPart of the halophytic Amaranthaceae (amaranth) family."
+  },
+  {
+    "name": "Persicaria amphibia",
+    "info": "Water smartweed\nPart of the Polygonaceae (smartweed) family. This family has an ocrea - a membranous sheath around the stem formed by multiple stipules."
+  },
+  {
+    "name": "Rumex acetosella",
+    "info": "Sour dock\nPart of the Polygonaceae (smartweed) family. This family has an ocrea - a membranous sheath around the stem formed by multiple stipules."
+  },
+  {
+    "name": "Drosera rotundifolia",
+    "info": "Round-leaved sundew\nPart of the Droseraceae (sundew) family. This family is insectivorous."
+  }
+]

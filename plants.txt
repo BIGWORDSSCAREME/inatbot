@@ -104,7 +104,7 @@
     "info": "Purple meadow-rue\nPart of the often poisonous, stipule-lacking Ranunculaceae (buttercup) family. Diecious - male and female flowers on different plants."
   },
   {
-    "name": "Calophyllum thalictroides",
+    "name": "Caulophyllum thalictroides",
     "info": "Blue cohosh\nPart of the Berbidaceae (barberry) family. Developing ovules of this species break the ovary wall so seeds are naked with fleshy blue seed coats. 3 times compound leaves."
   },
   {

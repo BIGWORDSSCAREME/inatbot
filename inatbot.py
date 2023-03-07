@@ -7,10 +7,13 @@ from PIL import Image, ImageTk
 from json import loads
 from tkinter.ttk import *
 import ttkthemes
+import traceback
 
 """THINGS TO DO--
 1. Make the program check for updates
-2. Error log.
+3. Make the description of plants into a scrolling textbox
+4. Add a way to create your own JSON plant lists
+
 
 Some things could be cleaned up. But that's not the biggest deal. Commenting more is important.
 Rename methods to using underscores. I think that convention looks ugly, but seems like classes use
@@ -19,6 +22,8 @@ uppercase and methods use underscores.
 Might want to change the ShowName() function to show the name gotten from inaturalist. This could make it
 so genuses n stuff can be used.
 """
+
+version = "b0.9"
 
 random.seed()
 iNatUrl = "https://api.inaturalist.org/v1/observations?photos=true&taxon_name={}&identifications=most_agree&quality_grade=research&locale=en-US&page={}&per_page=10&order=desc&order_by=created_at"
@@ -50,8 +55,6 @@ class AppWindow:
 
 	def __init__(self):
 		#building of the GUI
-		#self.window = tk.Tk()
-
 
 		self.window = ttkthemes.ThemedTk(theme = "adapta")	
 				
@@ -68,8 +71,14 @@ class AppWindow:
 				
 		self.window.mainloop()
 		
-	def handle_exception(exception, value, traceback):
-		print("Caught exception:", exception)
+	def handle_exception(self, exception, value, tb):
+		#Called upon exception. Just writes to log.txt.
+		log = open("log.txt", "w")
+		log.write("EXCEPTION: " + str(exception) + "\n")
+		log.write(str(value) + "\n")
+		for i in traceback.format_tb(tb):
+			log.write(i)
+		log.close()
 		
 class MainMenu(Screen):
 
@@ -78,14 +87,27 @@ class MainMenu(Screen):
 	def __init__(self, window, readygamescreen):
 		self.mainFrame = Frame(window)
 		self.readyGameScreen = readygamescreen
-		self.topLabel = Label(self.mainFrame, text = "hi")
+		self.topLabel = Label(self.mainFrame, text = "iNat study helper version: " + version)
 		self.topLabel.pack()
+		#lol
+		self.venmoLabel = Label(self.mainFrame, text = "My venmo is @Sebastian-Ehlke lol")		
+		self.venmoLabel.pack()
 		self.gameButton = Button(self.mainFrame, text = "Start", command = self.ReadyGameButton)
 		self.gameButton.pack()
 	
 	def ReadyGameButton(self):
 		self.UnpackSelf()
 		self.readyGameScreen.PackSelf()
+
+	def PackSelf(self):
+		#This checks for an update and creates a dialogue of one is available.
+		req = r.get("https://bigwordsscareme.github.io/data/update.json")
+		req = loads(req.content)
+		updateVersion = req["version"]
+		message = req["message"]
+		if updateVersion != version:
+			updateDialogue = tk.messagebox.showinfo("Update available", "Update version " + updateVersion + " available at https://github.com/BIGWORDSSCAREME/inatbot" + "\n" + message)
+		self.mainFrame.pack(fill = "both", expand = True)
 
 
 
@@ -248,7 +270,7 @@ class Game(Screen):
 		self.speciesGuessResult.grid(row = 3, column = 2, sticky = tk.W)
 		self.previousSpeciesButton.grid(row = 4, column = 1, sticky = tk.E)
 		self.nextSpeciesButton.grid(row = 4, column = 2, sticky = tk.W)
-		self.speciesInfo.grid(row = 5, column = 1)
+		self.speciesInfo.grid(row = 5, column = 1, columnspan = 2)
 		self.exitButton.grid(row = 6, column = 0, sticky = tk.W, columnspan = 2)
 		self.mainFrame.grid_columnconfigure((0, 3), weight = 1)
 
@@ -386,7 +408,7 @@ class Game(Screen):
 		#Event fired when enter is pressed in the "guess the species" entry.
 		if event.keysym == "Return":
 			entered = self.guessSpeciesEntry.get()
-			if entered.upper() == self.randomizedList[self.currentImage % len(self.randomizedList)]["species"].upper():
+			if entered.upper() == self.randomizedList[self.currentImage % len(self.randomizedList)]["name"].upper():
 				#Check if its the name of the current species
 				self.points += 1
 				self.speciesGuessResult.config(text = "Correct!")

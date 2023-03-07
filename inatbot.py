@@ -417,6 +417,13 @@ class Game(Screen):
 				self.speciesGuessResult.config(text = "Inorrect :(")
 			self.pointsLabel.config(text = str(self.points) + " points")
 
+	def UnpackSelf(self):
+		self.speciesList = []
+		self.randomizedList = []
+		self.speciesDict = {}
+		self.imageCanvas.delete("all")
+		self.currentImage = 0
+		self.mainFrame.pack_forget()
 
 				
 mainWindow = AppWindow()

@@ -312,7 +312,7 @@ class Game(Screen):
 		self.readyGameScreen = readygamescreen
 		self.speciesList = speciesList
 		self.MakeOrder()
-		self.mainFrame.pack(fill = "both", expand = Trues)
+		self.mainFrame.pack(fill = "both", expand = True)
 		#If the minsize is smthn else then itll fuck w the buttons. If the text changes, the whole column size will change.
 		#This prevents that.
 		self.mainFrame.grid_columnconfigure((2), minsize = self.speciesInfoCanvas.winfo_width() / 2)

@@ -1,0 +1,8 @@
+EXCEPTION: <class 'NameError'>
+name 'Trues' is not defined
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.2800.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 1921, in __call__
+    return self.func(*args)
+  File "C:\Users\meowmeow meow mewo m\Desktop\inatbot\inatbot.py", line 194, in StartGame
+    self.gameFrame.PackSelf(self.speciesList, self)
+  File "C:\Users\meowmeow meow mewo m\Desktop\inatbot\inatbot.py", line 315, in PackSelf
+    self.mainFrame.pack(fill = "both", expand = Trues)

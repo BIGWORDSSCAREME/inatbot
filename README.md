@@ -15,4 +15,4 @@ https://pillow.readthedocs.io/en/stable/installation.html
 
 right now it is functional but it is not perfect. i plan on working on this more when i get the chance. this was born out of an incredible amount of boredom and an intense determination to not do my schoolwork, and those vices will likely be what maintains it.
 
-any questions/whatever can be directed at ehlke2@wisc.edu
+any questions/whatever/ERRORS (please send me errors so i can fix them) can be directed at ehlke2@wisc.edu

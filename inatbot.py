@@ -10,8 +10,6 @@ import ttkthemes
 import traceback
 
 """THINGS TO DO--
-1. Make the program check for updates
-3. Make the description of plants into a scrolling textbox
 4. Add a way to create your own JSON plant lists
 
 
@@ -22,7 +20,6 @@ uppercase and methods use underscores.
 Might want to change the ShowName() function to show the name gotten from inaturalist. This could make it
 so genuses n stuff can be used.
 """
-
 version = "b0.9"
 
 random.seed()
@@ -102,11 +99,14 @@ class MainMenu(Screen):
 	def PackSelf(self):
 		#This checks for an update and creates a dialogue of one is available.
 		req = r.get("https://bigwordsscareme.github.io/data/update.json")
-		req = loads(req.content)
-		updateVersion = req["version"]
-		message = req["message"]
-		if updateVersion != version:
-			updateDialogue = tk.messagebox.showinfo("Update available", "Update version " + updateVersion + " available at https://github.com/BIGWORDSSCAREME/inatbot" + "\n" + message)
+		try:
+			req = loads(req.content)
+			updateVersion = req["version"]
+			message = req["message"]
+			if version != updateVersion:
+				updateDialogue = tk.messagebox.showinfo("Update available", "Update version " + updateVersion + " available at https://github.com/BIGWORDSSCAREME/inatbot" + "\n" + message)
+		except:
+			updateDialogue = tk.messagebox.showinfo("Update available", "Error fetching update information. Update may be available at https://github.com/BIGWORDSSCAREME/inatbot")
 		self.mainFrame.pack(fill = "both", expand = True)
 
 
@@ -283,7 +283,8 @@ class Game(Screen):
 		self.showNameButton = Button(self.mainFrame, text = "Show name", command = self.ShowName)
 		self.guessSpeciesEntry = Entry(self.mainFrame)
 		self.guessSpeciesEntry.bind("<KeyPress>", self.GuessSpecies)
-		self.speciesGuessResult = Label(self.mainFrame, text = "Enter the species name", justify = "left", anchor = "w")
+		self.speciesGuessResultFrame = Frame(self.mainFrame)
+		self.speciesGuessResult = Label(self.speciesGuessResultFrame, text = "Enter the species name", justify = "left", anchor = "w")
 		self.pointsLabel = Label(self.mainFrame, text = "0 points")
 		self.previousSpeciesButton = Button(self.mainFrame, text = "Previous species", command = lambda: self.NextImage(-1))
 		self.nextSpeciesButton = Button(self.mainFrame, text = "Next species", command = lambda: self.NextImage(1))
@@ -293,14 +294,15 @@ class Game(Screen):
 		self.pointsLabel.grid(row = 0, column = 2, sticky = tk.N + tk.E, columnspan = 2, padx = (0, 100))
 		self.imageCanvas.grid(row = 1, column = 1, columnspan = 2)
 		self.showNameButton.grid(row = 2, column = 1, sticky = tk.N + tk.S + tk.E + tk.W, columnspan = 2)
-		self.guessSpeciesEntry.grid(row = 3, column = 1, sticky = tk.E)
-		self.speciesGuessResult.grid(row = 3, column = 2, sticky = tk.W)
-		self.previousSpeciesButton.grid(row = 4, column = 1, sticky = tk.E)
-		self.nextSpeciesButton.grid(row = 4, column = 2, sticky = tk.W)
+		self.guessSpeciesEntry.grid(row = 3, column = 1, sticky = tk.E + tk.W)
+		self.speciesGuessResultFrame.grid(row = 3, column = 2, sticky = tk.W)
+		self.speciesGuessResult.pack(fill = "both", expand = True)
+		self.previousSpeciesButton.grid(row = 4, column = 1, sticky = tk.E + tk.W)
+		self.nextSpeciesButton.grid(row = 4, column = 2, sticky = tk.E + tk.W)
 		self.exitButton.grid(row = 6, column = 0, sticky = tk.W + tk.S, columnspan = 2, padx = (50, 0), pady = (0, 25))
 		
 		#Row configure/column configuremake these columns/rows fill space
-		self.mainFrame.grid_columnconfigure((0, 3), weight = 1)
+		self.mainFrame.grid_columnconfigure((0, 3), weight = 2)
 		self.mainFrame.grid_rowconfigure(6, weight = 1)
 
 	def PackSelf(self, speciesList, readygamescreen):
@@ -310,7 +312,16 @@ class Game(Screen):
 		self.readyGameScreen = readygamescreen
 		self.speciesList = speciesList
 		self.MakeOrder()
-		self.mainFrame.pack(fill = "both", expand = True)
+		self.mainFrame.pack(fill = "both", expand = Trues)
+		#If the minsize is smthn else then itll fuck w the buttons. If the text changes, the whole column size will change.
+		#This prevents that.
+		self.mainFrame.grid_columnconfigure((2), minsize = self.speciesInfoCanvas.winfo_width() / 2)
+		self.mainFrame.grid_columnconfigure((1), minsize = self.speciesInfoCanvas.winfo_width() / 2)
+
+
+		self.nextSpeciesButton.configure(width = self.imageCanvas.winfo_width() / 2)
+		self.previousSpeciesButton.configure(width = self.imageCanvas.winfo_width() / 2)
+		self.speciesGuessResultFrame.configure(width = self.mainFrame.grid_bbox(4, 2)[2])
 		
 		#These next few lines are just loading the first and next few images to be shown basically.
 		#The NextImage function does basically the same thing.

@@ -80,7 +80,7 @@ class AppWindow:
 
 		self.window = ttkthemes.ThemedTk(theme = "adapta")	
 				
-		self.window.geometry("800x500")
+		self.window.state("zoomed")
 		self.window.title("iNat study helper")
 
 		self.mainMenuScreen = MainMenu(self.window)
@@ -110,6 +110,8 @@ class MainMenu(Screen):
 		self.goToReadyGameButton.pack()
 		self.GoToStudySetButtonMaker = Button(self.mainFrame, text = "Create study set", command = self.GoToStudySetMaker)
 		self.GoToStudySetButtonMaker.pack()
+		self.catImageCanvas = None
+		self.catLabel = None
 
 	
 	def GoToReadyGame(self):
@@ -134,15 +136,17 @@ class MainMenu(Screen):
 		except:
 			updateDialogue = tk.messagebox.showinfo("Update available", "Error fetching update information. Update may be available at https://github.com/BIGWORDSSCAREME/inatbot")
 		self.mainFrame.pack(fill = "both", expand = True)
-		if catImages[0] != None:
+		if catImages[0] != None and self.catLabel == None:
+		#Check if the cat image was retrieved and also if this chunk of code has already been run.
+		#If it has already been run, it'll run it again but that doesn't really do anything other
+		#Than extending the height of the canvas and making it look ugly
 			self.catImageCanvas = tk.Canvas(self.mainFrame, height = 350)
 			self.catImageCanvas.pack()
 			catImages[0] = catImages[0].resize((438, 350), Image.LANCZOS)
 			catImages[0] = ImageTk.PhotoImage(catImages[0])
 			self.catImageCanvas.create_image(0, 0, anchor = tk.NW, image = catImages[0])
-			self.catLabel = Label(self.mainFrame, text = "This is my mom's (MY) cat General Salmon.\nShe likes meowing very loudly, licking plastic, and eating plants.\nA true botanist.")
+			self.catLabel = Label(self.mainFrame, text = "This is my mom's (MY) cat General Salmon.\nShe likes meowing very loudly, licking plastic, and eating plants.\nA true botanist.", justify = "center")
 			self.catLabel.pack()
-
 
 
 class ReadyGame(Screen):

@@ -4,14 +4,13 @@ import tkinter as tk
 from tkinter import filedialog
 from os import remove
 from PIL import Image, ImageTk
-from json import loads
+from json import loads, dump
 from tkinter.ttk import *
+from sys import exc_info
 import ttkthemes
 import traceback
 
 """THINGS TO DO--
-4. Add a way to create your own JSON plant lists
-
 
 Some things could be cleaned up. But that's not the biggest deal. Commenting more is important.
 Rename methods to using underscores. I think that convention looks ugly, but seems like classes use
@@ -21,9 +20,24 @@ Might want to change the ShowName() function to show the name gotten from inatur
 so genuses n stuff can be used.
 """
 version = "b0.9"
+catImages = [None, None]
+catEnabled = False
+#For some fucking reason it doesn't let me set catenabled to true from a class function.
+#Maybe because it thinks its a local variable but why i have no idea.
+def CatEnabledFunc():
+	catEnabled = True
 
 random.seed()
 iNatUrl = "https://api.inaturalist.org/v1/observations?photos=true&taxon_name={}&identifications=most_agree&quality_grade=research&locale=en-US&page={}&per_page=10&order=desc&order_by=created_at"
+
+def handle_exception(exception, value, tb):
+	#Called upon exception. Just writes to log.txt.
+	log = open("log.txt", "w")
+	log.write("EXCEPTION: " + str(exception) + "\n")
+	log.write(str(value) + "\n")
+	for i in traceback.format_tb(tb):
+		log.write(i)
+	log.close()
 
 def BindTree(node, event, function):
 	node.bind(event, function)
@@ -34,6 +48,17 @@ def BindTree(node, event, function):
 def insert_newlines(string, every=64):
 	#stole this function from stackoverflow. adds new lines every 64 characters.
 	return '\n'.join(string[i:i+every] for i in range(0, len(string), every))
+
+def GetCatImages():
+	cat = r.get("https://bigwordsscareme.github.io/inatbot/images/cats/generalsalmon.jpg", stream = True)
+	if cat.status_code == 200:
+		img = Image.open(cat.raw)
+		catImages[0] = img
+	cat = r.get("https://bigwordsscareme.github.io/inatbot/images/cats/smokey.jpg", stream = True)
+	if cat.status_code == 200:
+		img = Image.open(cat.raw)
+		catImages[1] = img
+
 
 class Screen:
 	
@@ -58,47 +83,48 @@ class AppWindow:
 		self.window.geometry("800x500")
 		self.window.title("iNat study helper")
 
-		self.gameScreen = Game(self.window)
-		self.readyGameScreen = ReadyGame(self.window, self.gameScreen)
-		self.mainMenuScreen = MainMenu(self.window, self.readyGameScreen)
+		self.mainMenuScreen = MainMenu(self.window)
 		
 		self.mainMenuScreen.PackSelf()
 		
-		self.window.report_callback_exception = self.handle_exception
+		self.window.report_callback_exception = handle_exception
 				
 		self.window.mainloop()
-		
-	def handle_exception(self, exception, value, tb):
-		#Called upon exception. Just writes to log.txt.
-		log = open("log.txt", "w")
-		log.write("EXCEPTION: " + str(exception) + "\n")
-		log.write(str(value) + "\n")
-		for i in traceback.format_tb(tb):
-			log.write(i)
-		log.close()
 		
 class MainMenu(Screen):
 
 	readyGameScreen = None
+	studySetMakerScreen = None
 
-	def __init__(self, window, readygamescreen):
+	def __init__(self, window):
+		GetCatImages()
 		self.mainFrame = Frame(window)
-		self.readyGameScreen = readygamescreen
+		self.studySetMakerScreen = StudySetMaker(window)
+		self.readyGameScreen = ReadyGame(window)
 		self.topLabel = Label(self.mainFrame, text = "iNat study helper version: " + version)
 		self.topLabel.pack()
 		#lol
 		self.venmoLabel = Label(self.mainFrame, text = "My venmo is @Sebastian-Ehlke lol")		
 		self.venmoLabel.pack()
-		self.gameButton = Button(self.mainFrame, text = "Start", command = self.ReadyGameButton)
-		self.gameButton.pack()
+		self.goToReadyGameButton = Button(self.mainFrame, text = "Start studying!", command = self.GoToReadyGame)
+		self.goToReadyGameButton.pack()
+		self.GoToStudySetButtonMaker = Button(self.mainFrame, text = "Create study set", command = self.GoToStudySetMaker)
+		self.GoToStudySetButtonMaker.pack()
+
 	
-	def ReadyGameButton(self):
+	def GoToReadyGame(self):
+		#Self explanitory. Called by the gotoreadygamebutton
 		self.UnpackSelf()
-		self.readyGameScreen.PackSelf()
+		self.readyGameScreen.PackSelf(self)
+
+	def GoToStudySetMaker(self):
+		#Self explanitory. Called by the gotostudysetmakerbutton
+		self.UnpackSelf()
+		self.studySetMakerScreen.PackSelf(self)
 
 	def PackSelf(self):
 		#This checks for an update and creates a dialogue of one is available.
-		req = r.get("https://bigwordsscareme.github.io/data/update.json")
+		req = r.get("https://bigwordsscareme.github.io/inatbot/data/update.json")
 		try:
 			req = loads(req.content)
 			updateVersion = req["version"]
@@ -108,21 +134,30 @@ class MainMenu(Screen):
 		except:
 			updateDialogue = tk.messagebox.showinfo("Update available", "Error fetching update information. Update may be available at https://github.com/BIGWORDSSCAREME/inatbot")
 		self.mainFrame.pack(fill = "both", expand = True)
+		if catImages[0] != None:
+			self.catImageCanvas = tk.Canvas(self.mainFrame, height = 350)
+			self.catImageCanvas.pack()
+			catImages[0] = catImages[0].resize((438, 350), Image.LANCZOS)
+			catImages[0] = ImageTk.PhotoImage(catImages[0])
+			self.catImageCanvas.create_image(0, 0, anchor = tk.NW, image = catImages[0])
+			self.catLabel = Label(self.mainFrame, text = "This is my mom's (MY) cat General Salmon.\nShe likes meowing very loudly, licking plastic, and eating plants.\nA true botanist.")
+			self.catLabel.pack()
 
 
 
 class ReadyGame(Screen):
+	#---I SHOULD PROBABLY KEEP THE OTHERS SCREENS DEFINED IN EITHER PACKSELF OR INIT. BOTH IS CONFUSING---#
 	#deletedSpeciesStack keeps track of species left-clicked (deleted). For undeleteing them.
 	deletedSpeciesStack = []
 	#speciesList is a dict - {"name": species, "info": info}
 	speciesList = []
-	gameFrame = None
+	gameScreen = None
+	mainMenu = None
 	
-	def __init__(self, window, game):
-		#GameFrame is the next screen - the screen of the game. for packing + unpacking this screen.
-		self.gameFrame = game
+	def __init__(self, window):
+		self.gameScreen = Game(window)
 		self.mainFrame = Frame(window)
-		self.instructionLabel = Label(self.mainFrame, text = "Type a species name (e.g Viola sororia) then press enter to add it to the list.\nCheck your spelling!\nAlso check (out) my venmo lol @Sebastian-Ehlke", justify = "center")
+		self.instructionLabel = Label(self.mainFrame, text = "Type a species name (e.g Viola sororia) then press enter to add to the list.\nCheck your spelling!", justify = "center")
 		self.instructionLabel.grid(column = 1, row = 0)
 		self.startGameButton = Button(self.mainFrame, text = "Start", command = self.StartGame)
 		self.startGameButton.grid(column = 1, row = 1, columnspan = 2)
@@ -132,7 +167,6 @@ class ReadyGame(Screen):
 		self.importSpecies = Button(self.mainFrame, text = "Import from file", command = self.ImportSpeciesFromFile)
 		self.importSpecies.grid(column = 1, row = 3, columnspan = 2)
 		
-
 		#Using tk.Frame instead of the Frame (which would be ttk.Frame) because I want a border
 		#Using a tk.Frame is probably the reason its a different color than the rest of the background.
 		#the ttk Frames have a styled/colored background. I like how it looks though.
@@ -155,11 +189,27 @@ class ReadyGame(Screen):
 		self.helpLabel = Label(self.mainFrame, justify = "center", text = "Click on a species to remove it from the list\nRight click to recover the last deleted species.")
 		self.helpLabel.grid(column = 1, row = 5)
 
+		#In a future version I should make this button in the same place as the back button on the game screen.
+		self.backToMenuButton = Button(self.mainFrame, text = "Back to main menu", command = self.BackToMainMenu)
+		self.backToMenuButton.grid(column = 0, row = 7, columnspan = 2, sticky = tk.S + tk.W, padx = (50, 0), pady = (0, 25))
+
 		#Column configure makes the specified columns (0 and 3) have a different weight.
 		#Weight makes them fill space basically, so it pushes the things in between 0 and 3 to the center
 		self.mainFrame.grid_columnconfigure((0, 3), weight = 1)
+		#This is necessary to make the bottom of the grid fill up the screen
+		self.mainFrame.grid_rowconfigure(7, weight = 1)
+
+	def PackSelf(self, mainmenu = None):
+		if mainmenu != None:
+			self.mainMenu = mainmenu
+		self.mainFrame.pack(fill = "both", expand = True)
+		#This stuff needs to be done after the grid is set up so it can get the actual width of the grid.
+		x0 = self.mainFrame.grid_bbox(1, 3)[2] / 2
+
+		self.enteredSpeciesCanvas.create_window((x0, 0), window = self.enteredSpeciesFrame, anchor = "n")
 
 	def ResetScrollregion(self, event):
+		#This function just makes sure the size of the scrollbar is right... I think.
 		self.enteredSpeciesCanvas.configure(scrollregion = self.enteredSpeciesCanvas.bbox("all"))
 
 	def SpeciesEntered(self, event):
@@ -191,7 +241,11 @@ class ReadyGame(Screen):
 			i.cableText.destroy()
 		del self.deletedSpeciesStack[:]
 		self.UnpackSelf()
-		self.gameFrame.PackSelf(self.speciesList, self)
+		self.gameScreen.PackSelf(self.speciesList, self)
+	
+	def BackToMainMenu(self):
+		self.UnpackSelf()
+		self.mainMenu.PackSelf()
 
 	def ImportSpeciesFromFile(self):
 		#Function for the import button. File dialog asking for a file. The file is read
@@ -205,14 +259,15 @@ class ReadyGame(Screen):
 			#you gotta format the json correctly! so it can be imported like this!
 			info = insert_newlines(i["info"])
 			self.AddSpecies(i["name"], info = info)
-			
-	def PackSelf(self):
-		self.mainFrame.pack(fill = "both", expand = True)
-		#This stuff needs to be done after the grid is set up so it can get the actual width of the grid.
-		x0 = self.mainFrame.grid_bbox(1, 3)[2] / 2
 
-		self.enteredSpeciesCanvas.create_window((x0, 0), window = self.enteredSpeciesFrame, anchor = "n")
-		
+	def EnableCat(self):
+		catImages[1] = catImages[1].resize((360, 640), Image.LANCZOS)
+		catImages[1] = ImageTk.PhotoImage(catImages[1])
+		self.enteredSpeciesCanvas.create_image(12, 0, anchor = tk.NW, image = catImages[1])
+		self.helpLabel.configure(text = "This is my mom's (MY) cat Smokey. She likes sleeping and licking people.\nShe is proud of you.")
+		CatEnabledFunc()
+
+
 
 class SpeciesListItem:
 
@@ -224,12 +279,13 @@ class SpeciesListItem:
 
 	def __init__(self, info, parent, delstack, specieslist):
 		#Info is a tuple of data in the species list. (NAME, INFORMATION). Setting the label text to the name.
-		self.cableText = Label(parent, text = info["name"], cursor = "pirate", justify = "center")
+		self.cableText = Label(parent, text = "", cursor = "pirate", justify = "center")
 		self.cableText.bind("<Button-1>", self.LeftClicked)
 		self.cableText.pack()
 		self.dStack = delstack
 		self.info = info
 		self.speciesList = specieslist
+		self.UpdateText()
 		
 	def LeftClicked(self, event):
 		self.dStack.append(self)
@@ -244,6 +300,9 @@ class SpeciesListItem:
 
 	def BindRecoverDeletedSpecies(self, function):
 		self.cableText.bind("<Button-3>", function)
+
+	def UpdateText(self):
+		self.cableText.configure(text = self.info["name"] + ": " + self.info["info"][:32] + "...")
 
 class Game(Screen):
 
@@ -284,18 +343,18 @@ class Game(Screen):
 		self.guessSpeciesEntry = Entry(self.mainFrame)
 		self.guessSpeciesEntry.bind("<KeyPress>", self.GuessSpecies)
 		self.speciesGuessResultFrame = Frame(self.mainFrame)
-		self.speciesGuessResult = Label(self.speciesGuessResultFrame, text = "Enter the species name", justify = "left", anchor = "w")
+		self.speciesGuessResult = Label(self.speciesGuessResultFrame, text = "Enter the species name", justify = "center", anchor = "center")
 		self.pointsLabel = Label(self.mainFrame, text = "0 points")
 		self.previousSpeciesButton = Button(self.mainFrame, text = "Previous species", command = lambda: self.NextImage(-1))
 		self.nextSpeciesButton = Button(self.mainFrame, text = "Next species", command = lambda: self.NextImage(1))
 		self.exitButton = Button(self.mainFrame, text = "Back to enter species", command = self.BackButton)
 
-		self.speciesName.grid(row = 0, column = 1, columnspan = 2)
 		self.pointsLabel.grid(row = 0, column = 2, sticky = tk.N + tk.E, columnspan = 2, padx = (0, 100))
+		self.speciesName.grid(row = 0, column = 1, columnspan = 2)
 		self.imageCanvas.grid(row = 1, column = 1, columnspan = 2)
 		self.showNameButton.grid(row = 2, column = 1, sticky = tk.N + tk.S + tk.E + tk.W, columnspan = 2)
 		self.guessSpeciesEntry.grid(row = 3, column = 1, sticky = tk.E + tk.W)
-		self.speciesGuessResultFrame.grid(row = 3, column = 2, sticky = tk.W)
+		self.speciesGuessResultFrame.grid(row = 3, column = 2, sticky = tk.W + tk.E)
 		self.speciesGuessResult.pack(fill = "both", expand = True)
 		self.previousSpeciesButton.grid(row = 4, column = 1, sticky = tk.E + tk.W)
 		self.nextSpeciesButton.grid(row = 4, column = 2, sticky = tk.E + tk.W)
@@ -303,7 +362,7 @@ class Game(Screen):
 		
 		#Row configure/column configuremake these columns/rows fill space
 		self.mainFrame.grid_columnconfigure((0, 3), weight = 2)
-		self.mainFrame.grid_rowconfigure(6, weight = 1)
+		self.mainFrame.grid_rowconfigure((6), weight = 1)
 
 	def PackSelf(self, speciesList, readygamescreen):
 
@@ -323,15 +382,24 @@ class Game(Screen):
 		self.previousSpeciesButton.configure(width = self.imageCanvas.winfo_width() / 2)
 		self.speciesGuessResultFrame.configure(width = self.mainFrame.grid_bbox(4, 2)[2])
 		
-		#These next few lines are just loading the first and next few images to be shown basically.
-		#The NextImage function does basically the same thing.
+		#These next few lines are just loading the previous and next images to be shown basically.
+		#The NextImage function does basically the same thing. Could probably make this better.
+
 		while self.GetImageUrls(self.randomizedList[1]["name"]) == 0:
 			self.RemoveSpeciesFromList(self.randomizedList[1]["name"])
 		imageDownload = self.DownloadImage(self.speciesDict[self.randomizedList[1]["name"]][self.randomizedList[1]["index"]]["url"])
 		self.speciesDict[self.randomizedList[1]["name"]][self.randomizedList[1]["index"]]["image"] = imageDownload
+
+		while self.GetImageUrls(self.randomizedList[0]["name"]) == 0:
+			self.RemoveSpeciesFromList(self.randomizedList[0]["name"])
+		imageDownload = self.DownloadImage(self.speciesDict[self.randomizedList[0]["name"]][self.randomizedList[0]["index"]]["url"])
+		self.speciesDict[self.randomizedList[0]["name"]][self.randomizedList[0]["index"]]["image"] = imageDownload
+
 		self.NextImage(1)
+		
 
 	def ResetScrollregion(self, event):
+		#This function just makes sure the size of the scrollbar is right... I think.
 		self.speciesInfoCanvas.configure(scrollregion = self.speciesInfoCanvas.bbox("all"))
 
 	def FrameWidth(self, event):
@@ -367,6 +435,9 @@ class Game(Screen):
 		#The previous line changes which page to get results from. We take 10 from each page.
 		#If something doesn't have atleast 30 results, this will fucking things up in the NextImage function.
 		request = None
+		if species in self.speciesDict:
+			#If this species is already in the keys, just return.
+			return
 		try:
 			request = r.get(speciesUrl)
 			jsonData = loads(request.content)
@@ -411,11 +482,12 @@ class Game(Screen):
 		self.currentImage += increment
 		#all this modulo math just makes it iterate through the list
 		index = self.currentImage % len(self.randomizedList)
-		#This line is so fucking beefy lmao. I'm sorry to whoever has to read this bullshit.
+		#This next line is mildly beefy lmao. I'm sorry to whoever has to read this bullshit.
 		#But--explanation.
 		#speciesDict is a dict (wow) of species (no way). Go to the species name, then for each species
 		#There is a list of dicts. These dicts have URLS for images, and the PIL images themselves.
 		#randomizedList has the name of the species and index of the image to be grabbed.
+		#NEED TO CHANGE CURRENTIMAGE AND SELF.CURRENTIMAGE. Just the names lol wtf was i thinking.
 		currentImage = self.randomizedList[index]
 		self.LoadImage(self.speciesDict[currentImage["name"]][currentImage["index"]]["image"])
 		
@@ -445,7 +517,6 @@ class Game(Screen):
 	def LoadImage(self, image):
 		self.imageCanvas.delete("all")
 		self.imageCanvas.create_image(0, 0, anchor = tk.NW, image = image)
-		self.imageCanvas.image = image
 
 	def ShowName(self):
 		species = self.randomizedList[self.currentImage % len(self.randomizedList)]
@@ -467,6 +538,9 @@ class Game(Screen):
 			else:
 				self.points -= 1
 				self.speciesGuessResult.config(text = "Inorrect :(")
+			if self.points == 100 and catEnabled == False:
+				self.speciesGuessResult.config(text = "New cat unlocked! Press back!")
+				self.readyGameScreen.EnableCat()
 			self.pointsLabel.config(text = str(self.points) + " points")
 
 	def UnpackSelf(self):
@@ -476,6 +550,133 @@ class Game(Screen):
 		self.imageCanvas.delete("all")
 		self.currentImage = 0
 		self.mainFrame.pack_forget()
+
+class StudySetMaker(Screen):
+	#I copied and pasted the ready game screen for this one.
+	#DRY or whatever. don't care.
+	#I'll fix it later.
+	deletedSpeciesStack = []
+	#speciesList is a dict - {"name": species, "info": info}
+	speciesList = []
+	mainMenu = None
+
+	#For keeping track of which species is the last one that was typed in.
+	#The entry box alternates between adding a species, and adding information about it.
+	#This is like pretty clearly a shitty way to do it, but I'll figure out a better way later.
+	currentSpecies = None
+	
+	def __init__(self, window):
+		self.mainFrame = Frame(window)
+		self.instructionLabel = Label(self.mainFrame, text = "Type a species name (e.g Viola sororia) then press enter to add to the list.\nCheck your spelling!", justify = "center")
+		self.instructionLabel.grid(column = 1, row = 0)
+		self.saveSetButton = Button(self.mainFrame, text = "Save", command = self.SaveToFile)
+		self.saveSetButton.grid(column = 1, row = 1, columnspan = 2)
+		self.enterSpecies = tk.Entry(self.mainFrame)
+		self.enterSpecies.bind("<KeyPress>", self.StuffEntered)
+		self.enterSpecies.grid(column = 1, row = 2, columnspan = 2)
+		
+		#Using tk.Frame instead of the Frame (which would be ttk.Frame) because I want a border
+		#Using a tk.Frame is probably the reason its a different color than the rest of the background.
+		#the ttk Frames have a styled/colored background. I like how it looks though.
+		self.canvasBorderFrame = tk.Frame(self.mainFrame, highlightbackground = "grey", highlightthickness = 2)
+		self.canvasBorderFrame.grid(column = 1, row = 3)
+		#tk.Canvas uses the tkinter canvas. Specifying nothing before a widget uses the stylable ttk widget.
+		self.enteredSpeciesCanvas = tk.Canvas(self.canvasBorderFrame)
+		self.enteredSpeciesCanvas.pack(anchor = "center")
+		self.enteredSpeciesScrollbar = Scrollbar(self.mainFrame, orient = "vertical")
+		self.enteredSpeciesScrollbar.grid(column = 2, row = 3, sticky = tk.N + tk.S)
+		self.enteredSpeciesCanvas.configure(yscrollcommand = self.enteredSpeciesScrollbar.set)
+		self.enteredSpeciesCanvas.bind("<Configure>", lambda e: self.enteredSpeciesCanvas.configure(scrollregion = self.enteredSpeciesCanvas.bbox("all")))
+		self.enteredSpeciesFrame = Frame(self.enteredSpeciesCanvas)
+		self.enteredSpeciesFrame.bind("<Configure>", self.ResetScrollregion)
+		
+		self.enteredSpeciesScrollbar.config(command = self.enteredSpeciesCanvas.yview)
+		self.deletedSpeciesStack = []
+		BindTree(self.mainFrame, "<Button-3>", self.RecoverDeletedSpecies)
+		
+		self.helpLabel = Label(self.mainFrame, justify = "center", text = "Click on a species to remove it from the list\nRight click to recover the last deleted species.")
+		self.helpLabel.grid(column = 1, row = 4)
+
+		#In a future version I should make this button in the same place as the back button on the game screen.
+		self.backToMenuButton = Button(self.mainFrame, text = "Back to main menu", command = self.BackToMainMenu)
+		self.backToMenuButton.grid(column = 0, row = 5, columnspan = 2, sticky = tk.S + tk.W, padx = (50, 0), pady = (0, 25))
+
+		#Column configure makes the specified columns (0 and 3) have a different weight.
+		#Weight makes them fill space basically, so it pushes the things in between 0 and 3 to the center
+		self.mainFrame.grid_columnconfigure((0, 3), weight = 1)
+		#This is necessary to make the bottom of the grid fill up the screen
+		self.mainFrame.grid_rowconfigure(5, weight = 1)
+
+	def PackSelf(self, mainmenu = None):
+		if mainmenu != None:
+			self.mainMenu = mainmenu
+		self.mainFrame.pack(fill = "both", expand = True)
+		#This stuff needs to be done after the grid is set up so it can get the actual width of the grid.
+		x0 = self.mainFrame.grid_bbox(1, 3)[2] / 2
+
+		self.enteredSpeciesCanvas.create_window((x0, 0), window = self.enteredSpeciesFrame, anchor = "n")
+
+	def ResetScrollregion(self, event):
+		#This function just makes sure the size of the scrollbar is right... I think.
+		self.enteredSpeciesCanvas.configure(scrollregion = self.enteredSpeciesCanvas.bbox("all"))
+
+	def StuffEntered(self, event):
+		#Function for when the enter key is pressed in the enterspecies entry.
+		if event.keysym == "Return":
+			entered = ""
+			entered = self.enterSpecies.get()
+			self.enterSpecies.delete(0, len(entered))
+			if self.currentSpecies == None:
+				#If the last thing entered was not a species, then we add a species.
+				self.AddSpecies(entered)
+				self.instructionLabel.configure(text = "Now enter information about the species--\nLike the family, distinguishing characteristics, etc.", foreground = "red")
+				
+			else:
+				#if the last thing entered was a species, then we add info about that species
+				self.AddInfo(self.currentSpecies.info, entered)
+				self.instructionLabel.configure(text = "Type a species name (e.g Viola sororia) then press enter to add to the list.\nCheck your spelling!", foreground = "black")
+
+	def AddSpecies(self, species, info = ""):
+		#Adds a species entered to the species list
+		self.currentSpecies = SpeciesListItem({"name": species, "info": ""}, self.enteredSpeciesFrame, self.deletedSpeciesStack, self.speciesList)
+		
+		self.speciesList.append(self.currentSpecies.info)
+		self.currentSpecies.BindRecoverDeletedSpecies(self.RecoverDeletedSpecies)
+		
+	def AddInfo(self, dict, info):
+		#The dict passed is the dictionary held by a SpeciesListItem object, it is the info attribute.
+		dict["info"] = info
+		self.currentSpecies.UpdateText()
+		self.currentSpecies = None
+
+	def RecoverDeletedSpecies(self, event):
+		#When right clicked, the last species deleted from the list reappears
+		if len(self.deletedSpeciesStack) > 0:
+			species = self.deletedSpeciesStack.pop()
+			species.Reappear()
+			self.speciesList.append(species)
+	
+	def SaveToFile(self):
+		if len(self.speciesList) > 0:
+			try:
+				extension = [('Text Document', '*.txt')]
+				file = filedialog.asksaveasfile(filetypes = extension, defaultextension = '.txt')
+				dump(self.speciesList, file)
+				file.close()
+				self.instructionLabel.configure(text = "Your study set has been written to a file!\nTo use it, press the 'import from file' button on the studying start screen.", foreground = "green")
+			except Exception as e:
+				eInfo = exc_info()
+				handle_exception(e, eInfo[1], eInfo[2])
+				self.instructionLabel.configure(text = "There was an error writing your data to a file.\nmb", foreground = "red")
+
+	def BackToMainMenu(self):
+		self.instructionLabel.configure(text = "Type a species name (e.g Viola sororia) then press enter to add to the list.\nCheck your spelling!", foreground = "black")
+		self.UnpackSelf()
+		self.mainMenu.PackSelf()
+
+
+
+
 
 				
 mainWindow = AppWindow()

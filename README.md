@@ -1,3 +1,10 @@
+Windows download: https://bigwordsscareme.github.io/inatbot/versions/windows/versionb0.9/inatbot.exe
+
+I am currently working on getting a version for mac working.
+
+List of exam 1 plants for importing and studying---
+https://bigwordsscareme.github.io/inatbot/data/plants/exam1plants.zip
+
 takes research grade images from inaturalist and puts them on your screen for you to ID. Enter the names of species, then press enter. For studying/learning to ID stuff from a bunch of different images.
 
 The txt files are JSON's of all the plants for exam 1 of botany 401 (and a few extras). Press the import file button to use them. I plan on making

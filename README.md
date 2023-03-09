@@ -1,4 +1,4 @@
-Windows download: https://bigwordsscareme.github.io/inatbot/versions/windows/versionb0.9/inatbot.exe
+Windows download: https://bigwordsscareme.github.io/inatbot/versions/windows/b0.9/inatbot.exe
 
 I am currently working on getting a version for mac working.
 

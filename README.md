@@ -1,6 +1,6 @@
 Windows download: https://bigwordsscareme.github.io/inatbot/versions/windows/b0.9/inatbot.exe
 
-I am currently working on getting a version for mac working.
+Windows download: https://bigwordsscareme.github.io/inatbot/versions/mac/b0.9/inatbot
 
 List of exam 1 plants for importing and studying---
 https://bigwordsscareme.github.io/inatbot/data/plants/exam1plants.zip

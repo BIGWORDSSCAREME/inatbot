@@ -2,13 +2,27 @@
 
 ## Downloads
 
-#### Your computer might have issues opening this for some security reason. Might not trust the file or whatever. You can just ignore that and run it anyways -- its safe.
-
 ### Windows: https://bigwordsscareme.github.io/inatbot/versions/windows/b0.9/inatbot.exe
 
 ### Mac: https://bigwordsscareme.github.io/inatbot/versions/mac/b0.9/inatbot
 
 <sub>List of exam 1 plants for importing and studying--- https://bigwordsscareme.github.io/inatbot/data/plants/exam1plants.zip </sub>
+
+#### Windows and mac anti-virus might get angry at these files.
+
+On windows there will be a pop-up saying "windows protected your PC". You can just click more info>Run Anyways.
+
+On mac this is what you can do:
+
+    In the Finder on your Mac, locate the app you want to open.
+
+    Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.
+
+    Control-click the app icon, then choose Open from the shortcut menu.
+
+    Click Open.
+
+    The app is saved as an exception to your security settings, and you can open it in the future by double-clicking it just as you can any registered app.
 
 ## Other stuff
 

@@ -1,6 +1,9 @@
 # iNaturalist study helper by BIGWORDSSSCAREME
 
 ## Downloads
+
+#### Your computer might have issues opening this for some security reason. Might not trust the file or whatever. You can just ignore that and run it anyways -- its safe.
+
 ### Windows: https://bigwordsscareme.github.io/inatbot/versions/windows/b0.9/inatbot.exe
 
 ### Mac: https://bigwordsscareme.github.io/inatbot/versions/mac/b0.9/inatbot

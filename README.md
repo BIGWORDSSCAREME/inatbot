@@ -3,9 +3,9 @@
 Demonstration of the program here:
 https://www.youtube.com/watch?v=rpLgEsCrCb8
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=rpLgEsCrCb8" target="_blank">
+<p align = "center"><a href="http://www.youtube.com/watch?feature=player_embedded&v=rpLgEsCrCb8" target="_blank">
  <img src="http://img.youtube.com/vi/rpLgEsCrCb8/maxresdefault.jpg" alt="Watch the video" width="640" height="360" border="10" />
-</a>
+</a></p>
 
 ## Downloads
 
@@ -31,9 +31,9 @@ having to use the terminal or anything.
 
 Video tutorial here: https://www.youtube.com/watch?v=rz-P3PHHbik
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=rz-P3PHHbik" target="_blank">
+<p align = "center"><a href="http://www.youtube.com/watch?feature=player_embedded&v=rz-P3PHHbik" target="_blank">
  <img src="http://img.youtube.com/vi/rz-P3PHHbik/maxresdefault.jpg" alt="Watch the video" width="640" height="360" border="10" />
-</a>
+</a></p>
 
 If you need any help with this, just email me @ ehlke2@wisc.edu. It may look like a lot but I can do this in two minutes so it is really not a problem.
 

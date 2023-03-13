@@ -22,6 +22,8 @@ the terminal that you want to go to the downloads directory -- where that file i
 move the inatbot file to wherever. You could put it on your desktop or another folder or wherever you want. And now if you double-click it, it should just open without
 having to use the terminal or anything.
 
+If you need any help with this, just email me. It may look like a lot but I can do this in two minutes so it is really not a problem.
+
 ## Other stuff
 
 takes research grade images from inaturalist and puts them on your screen for you to ID. Enter the names of species, then press enter. For studying/learning to ID stuff 

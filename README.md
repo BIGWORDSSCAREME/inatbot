@@ -8,7 +8,7 @@
 
 <sub>List of exam 1 plants for importing and studying--- https://bigwordsscareme.github.io/inatbot/data/plants/exam1plants.zip </sub>
 
-#### Windows and mac anti-virus might get angry at these files.
+#### ***Windows and mac anti-virus might get angry at these files.***
 
 On windows there will be a pop-up saying "windows protected your PC". You can just click more info>Run Anyways.
 

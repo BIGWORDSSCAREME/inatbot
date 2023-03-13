@@ -12,17 +12,15 @@
 
 On windows there will be a pop-up saying "windows protected your PC". You can just click more info>Run Anyways.
 
-On mac this is what you can do:
-
-    In the Finder on your Mac, locate the app you want to open.
-
-    Don’t use Launchpad to do this. Launchpad doesn’t allow you to access the shortcut menu.
-
-    Control-click the app icon, then choose Open from the shortcut menu.
-
-    Click Open.
-
-    The app is saved as an exception to your security settings, and you can open it in the future by double-clicking it just as you can any registered app.
+On mac it is a larger pain in the ass to run, but it still works fine. Here's how you do it --
+1. Open the terminal. If you don't know how to do this, just spotlight search "terminal" and it should come up.
+2. In the terminal type "cd Downloads" By default downloads go to your downloads directory.  cd stands for change directory, so with this command you're just telling
+the terminal that you want to go to the downloads directory -- where that file is.
+3. In the terminal type "chmod +x inatbot" This command gives that inatbot file permissions to open basically.
+4. In the terminal type "./inatbot" This command runs the program.
+5. After you open it one time, you can right-click the inatbot file and under the "open with" tab set the default program to the terminal. After you do this, you can
+move the inatbot file to wherever. You could put it on your desktop or another folder or wherever you want. And now if you double-click it, it should just open without
+having to use the terminal or anything.
 
 ## Other stuff
 

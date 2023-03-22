@@ -236,7 +236,7 @@ class ReadyGame(Screen):
 		if len(self.deletedSpeciesStack) > 0:
 			species = self.deletedSpeciesStack.pop()
 			species.Reappear()
-			self.speciesList.append(species)
+			self.speciesList.append({"name": species.info["name"], "info": species.info["info"]})
 
 	def StartGame(self):
 		if len(self.speciesList) == 0:
@@ -658,7 +658,7 @@ class StudySetMaker(Screen):
 		if len(self.deletedSpeciesStack) > 0:
 			species = self.deletedSpeciesStack.pop()
 			species.Reappear()
-			self.speciesList.append(species)
+			self.speciesList.append({"name": species.info["name"], "info": species.info["info"]})
 	
 	def SaveToFile(self):
 		if len(self.speciesList) > 0:

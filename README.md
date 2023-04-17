@@ -11,7 +11,7 @@ https://www.youtube.com/watch?v=rpLgEsCrCb8
 
 <sub>List of exam 1 plants for importing and studying--- https://bigwordsscareme.github.io/inatbot/data/plants/exam1plants.zip </sub>
 
-##### List of exam 1 plants for importing and studying--- https://bigwordsscareme.github.io/inatbot/data/plants/exam2plants.txt </sub>
+##### List of exam 1 plants for importing and studying--- https://bigwordsscareme.github.io/inatbot/data/plants/exam2plants.txt
 
 #### ***Windows and mac anti-virus might get angry at these files.***
 
